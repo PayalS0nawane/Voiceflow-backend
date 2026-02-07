@@ -40,7 +40,7 @@ export const speechToText = async (req, res) => {
     await db.collection("transcripts").add({
       text: transcript,
       createdAt: new Date(),
-      //createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      
     });
 
     res.json({ transcript });
