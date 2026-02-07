@@ -1,11 +1,10 @@
 {
-  "name": "backend",
+  "name": "voiceflow-backend",
   "version": "1.0.0",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev":"nodemon src/server.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "@deepgram/sdk": "^4.11.3",
