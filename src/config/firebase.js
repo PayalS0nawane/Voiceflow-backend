@@ -7,7 +7,7 @@ if (!admin.apps.length) {
     projectId: process.env.FIREBASE_PROJECT_ID, // 👈 REQUIRED
   });
 }
-console.log("ENV PROJECT:", process.env.FIREBASE_PROJECT_ID);
+//console.log("ENV PROJECT:", process.env.FIREBASE_PROJECT_ID);
 
 const db = admin.firestore();
 export { admin, db };
