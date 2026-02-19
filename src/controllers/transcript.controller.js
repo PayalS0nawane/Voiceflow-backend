@@ -36,7 +36,7 @@ export const getTranscripts = async (req, res) => {
 
     const snapshot = await db
       .collection("transcripts")
-      // .where("userId", "==", req.user.uid)
+      .where("userId", "==", req.user.uid)
       .orderBy("createdAt", "desc")
       .get();
 
