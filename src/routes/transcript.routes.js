@@ -9,8 +9,8 @@ import { authenticate } from "../middleware/auth.js";
 const router = express.Router();
 
 // 🔒 PROTECT BOTH ROUTES
-router.post("/", authenticate, saveTranscript);
 router.get("/", authenticate, getTranscripts);
+router.post("/", authenticate, saveTranscript);
 router.delete("/:id", authenticate, deleteTranscript);
 
 export default router;
