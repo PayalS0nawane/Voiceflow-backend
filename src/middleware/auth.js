@@ -11,10 +11,12 @@ export const authenticate = async (req, res, next) => {
 
   try {
     const decoded = await admin.auth().verifyIdToken(token);
+    console.log("AUTH header:", req.headers.authorization);
     req.user = decoded;
     next();
   } catch (err) {
     console.error("AUTH ERROR:", err);
+    console.log("VERIFY ERROR:", err);
     res.status(401).json({ error: "Invalid token" });
   }
 };
