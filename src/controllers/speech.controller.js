@@ -52,8 +52,8 @@ export const speechToText = async (req, res) => {
     await db.collection("transcripts").add({
       text: transcript,
       userId: req.user.uid, // 🔑 REQUIRED
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      //createdAt: new Date(),
+     //createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: new Date(),
     });
 
     res.status(200).json({ transcript });

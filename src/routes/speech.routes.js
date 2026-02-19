@@ -5,7 +5,8 @@ import { authenticate } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/",authenticate,
+router.post("/", 
+     authenticate,
      upload.single("audio"), speechToText);
 
 export default router;
