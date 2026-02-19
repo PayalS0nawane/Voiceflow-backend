@@ -1,6 +1,5 @@
 import deepgram from "../config/deepgram.js";
 import { db } from "../config/firebase.js";
-import admin from "firebase-admin";
 
 export const speechToText = async (req, res) => {
   try {
@@ -25,17 +24,12 @@ export const speechToText = async (req, res) => {
     const response =
       await deepgram.listen.prerecorded.transcribeFile(buffer, {
         model: "nova-2",
-        language: "en",
         smart_format: true,
-
-        // 🔥 VERY IMPORTANT (audio/webm + opus)
-        mimetype: "audio/webm",
-        encoding: "opus",
-        sample_rate: 48000,
-        channels: 1,
+        punctuate: true,
+        mimetype: req.file.mimetype, // ✅ Correct
       });
 
-    console.log("DEEPGRAM FULL RESPONSE:", JSON.stringify(response, null, 2));
+    console.log("DEEPGRAM RESPONSE:", JSON.stringify(response, null, 2));
 
     const transcript =
       response?.result?.results?.channels?.[0]?.alternatives?.[0]?.transcript ||
@@ -51,12 +45,12 @@ export const speechToText = async (req, res) => {
     // 💾 Save to Firestore
     await db.collection("transcripts").add({
       text: transcript,
-      userId: req.user.uid, // 🔑 REQUIRED
-     //createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      userId: req.user.uid,
       createdAt: new Date(),
     });
 
     res.status(200).json({ transcript });
+
   } catch (err) {
     console.error("SPEECH TO TEXT ERROR:", err);
     res.status(500).json({ error: "Speech to text failed" });
